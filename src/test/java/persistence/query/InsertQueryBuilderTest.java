@@ -1,4 +1,4 @@
-package persistence;
+package persistence.query;
 
 import org.junit.jupiter.api.Test;
 

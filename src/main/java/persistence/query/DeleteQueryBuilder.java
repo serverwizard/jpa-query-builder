@@ -1,4 +1,4 @@
-package persistence;
+package persistence.query;
 
 public class DeleteQueryBuilder {
     private String tableName;

@@ -1,4 +1,4 @@
-package persistence;
+package persistence.query;
 
 import java.util.Arrays;
 
