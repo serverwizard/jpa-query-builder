@@ -6,6 +6,7 @@ import java.util.List;
 public class SelectQueryBuilder {
     private List<String> columns;
     private String tableName;
+    private String whereCondition;
     private String orderByColumn;
     private DirectionType direction;
     private Integer limit;
@@ -17,6 +18,11 @@ public class SelectQueryBuilder {
 
     public SelectQueryBuilder from(String table) {
         this.tableName = table;
+        return this;
+    }
+
+    public SelectQueryBuilder where(String condition) {
+        this.whereCondition = condition;
         return this;
     }
 
@@ -49,6 +55,8 @@ public class SelectQueryBuilder {
         }
 
         sql.append(" FROM ").append(tableName);
+
+        sql.append(" WHERE ").append(whereCondition);
 
         if (orderByColumn != null) {
             sql.append(" ORDER BY ").append(orderByColumn);
