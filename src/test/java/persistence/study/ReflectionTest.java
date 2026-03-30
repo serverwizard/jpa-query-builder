@@ -48,6 +48,19 @@ public class ReflectionTest {
         }
     }
 
+    @Test
+    @DisplayName("@PrintView 애노테이션 메서드 실행")
+    void testAnnotationMethodRun() throws Exception {
+        Class<Car> carClass = Car.class;
+        Car car = new Car();
+
+        for (Method method : carClass.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(PrintView.class)) {
+                method.invoke(car);
+            }
+        }
+    }
+
     private String formatParameters(Class<?>[] parameterTypes) {
         return Arrays.stream(parameterTypes)
                 .map(Class::getTypeName)
