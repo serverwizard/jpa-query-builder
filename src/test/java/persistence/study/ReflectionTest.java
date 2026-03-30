@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -75,6 +76,18 @@ public class ReflectionTest {
         Field priceField = carClass.getDeclaredField("price");
         priceField.setAccessible(true);
         priceField.set(car, 3000);
+
+        logger.debug("Car name: {}", car.getName());
+        logger.debug("Car price: {}", car.getPrice());
+    }
+
+    @Test
+    @DisplayName("인자를 가진 생성자의 인스턴스 생성")
+    void constructorWithArgs() throws Exception {
+        Class<Car> carClass = Car.class;
+
+        Constructor<Car> constructor = carClass.getDeclaredConstructor(String.class, int.class);
+        Car car = constructor.newInstance("투싼", 4000);
 
         logger.debug("Car name: {}", car.getName());
         logger.debug("Car price: {}", car.getPrice());
