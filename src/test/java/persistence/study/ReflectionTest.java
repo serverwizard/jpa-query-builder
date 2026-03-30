@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -59,6 +60,24 @@ public class ReflectionTest {
                 method.invoke(car);
             }
         }
+    }
+
+    @Test
+    @DisplayName("private 필드에 값 할당")
+    void privateFieldAccess() throws Exception {
+        Class<Car> carClass = Car.class;
+        Car car = new Car();
+
+        Field nameField = carClass.getDeclaredField("name");
+        nameField.setAccessible(true);
+        nameField.set(car, "투싼");
+
+        Field priceField = carClass.getDeclaredField("price");
+        priceField.setAccessible(true);
+        priceField.set(car, 3000);
+
+        logger.debug("Car name: {}", car.getName());
+        logger.debug("Car price: {}", car.getPrice());
     }
 
     private String formatParameters(Class<?>[] parameterTypes) {
