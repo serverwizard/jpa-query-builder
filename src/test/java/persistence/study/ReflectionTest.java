@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,22 @@ public class ReflectionTest {
                         method.getName(),
                         formatParameters(method.getParameterTypes()),
                         method.getReturnType()));
+    }
+
+    @Test
+    @DisplayName("test로 시작하는 메서드 실행")
+    void testMethodRun() throws Exception {
+        Class<Car> carClass = Car.class;
+        Car car = new Car();
+
+        for (Method method : carClass.getDeclaredMethods()) {
+            if (method.getName().startsWith("test")) {
+                logger.debug("Method: {}({}) -> Result: {}",
+                        method.getName(),
+                        formatParameters(method.getParameterTypes()),
+                        method.invoke(car));
+            }
+        }
     }
 
     private String formatParameters(Class<?>[] parameterTypes) {
